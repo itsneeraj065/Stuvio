@@ -1,0 +1,17 @@
+# Java
+target/
+*.class
+
+# Node.js
+node_modules/
+
+# IDE
+.idea/
+.vscode/
+
+# OS Files
+Thumbs.db
+.DS_Store
+
+# Environment Variables
+.env
