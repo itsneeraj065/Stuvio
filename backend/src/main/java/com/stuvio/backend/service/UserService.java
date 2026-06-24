@@ -16,6 +16,11 @@ public class UserService {
     }
 
     public User createUser(User user) {
+
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            throw new RuntimeException("Email already exists");
+        }
+
         return userRepository.save(user);
     }
 
@@ -25,6 +30,10 @@ public class UserService {
 
     public User getUserById(Long id) {
         return userRepository.findById(id).orElse(null);
+    }
+
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElse(null);
     }
 
     public User updateUser(Long id, User updatedUser) {
