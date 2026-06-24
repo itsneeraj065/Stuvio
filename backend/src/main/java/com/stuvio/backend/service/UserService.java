@@ -4,6 +4,8 @@ import com.stuvio.backend.entity.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.stuvio.backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import com.stuvio.backend.dto.LoginRequest;
+import com.stuvio.backend.dto.LoginResponse;
 
 import java.util.List;
 
@@ -39,7 +41,22 @@ public class UserService {
     public User getUserById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
+public LoginResponse login(LoginRequest request) {
 
+    User user = userRepository.findByEmail(request.getEmail())
+            .orElseThrow(() -> new RuntimeException("User not found"));
+
+    boolean passwordMatches = passwordEncoder.matches(
+            request.getPassword(),
+            user.getPassword()
+    );
+
+    if (!passwordMatches) {
+        throw new RuntimeException("Invalid password");
+    }
+
+    return new LoginResponse("Login successful");
+}
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email).orElse(null);
     }

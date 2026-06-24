@@ -4,6 +4,8 @@ import com.stuvio.backend.entity.User;
 import com.stuvio.backend.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
+import com.stuvio.backend.dto.LoginRequest;
+import com.stuvio.backend.dto.LoginResponse;
 
 import java.util.List;
 
@@ -53,4 +55,8 @@ public class UserController {
     public String deleteUser(@PathVariable Long id) {
         return userService.deleteUser(id);
     }
+    @PostMapping("/login")
+public LoginResponse login(@RequestBody LoginRequest request) {
+    return userService.login(request);
+}
 }
