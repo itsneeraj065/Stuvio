@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
-    @GetMapping("/")
-    public String home() {
-        return "Welcome to StuVio Backend";
+    @GetMapping("/api/test")
+    public String test() {
+        return "You are authenticated!";
     }
 }

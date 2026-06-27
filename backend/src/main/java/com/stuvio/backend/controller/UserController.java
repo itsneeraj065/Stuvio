@@ -1,5 +1,6 @@
 package com.stuvio.backend.controller;
 
+import org.springframework.http.ResponseEntity;
 import com.stuvio.backend.entity.User;
 import com.stuvio.backend.service.UserService;
 import jakarta.validation.Valid;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin(origins = "*")  // ✅ ENABLE CORS HERE
 public class UserController {
 
     private final UserService userService;
@@ -51,12 +53,13 @@ public class UserController {
     }
 
     // Delete User
-    @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable Long id) {
-        return userService.deleteUser(id);
+    @DeleteMapping("/users/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.ok("User deleted successfully");
     }
     @PostMapping("/login")
-public LoginResponse login(@RequestBody LoginRequest request) {
-    return userService.login(request);
-}
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
+        return ResponseEntity.ok(userService.login(request));
+    }
 }
